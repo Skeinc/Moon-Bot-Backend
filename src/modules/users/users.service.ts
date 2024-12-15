@@ -1,7 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ApiResponse } from "@shared/dto/api.dto";
-import { CreateUserDto, UpdateUserDto } from "@shared/dto/user.dto";
+import { CreateUserDto, UpdateUserDto, UserDto } from "@shared/dto/user.dto";
+import { RoleEntity } from "@shared/entities/role.entity";
 import { UserEntity } from "@shared/entities/user.entity";
 import { Repository } from "typeorm";
 
@@ -10,15 +11,33 @@ export class UsersService {
     constructor(
         @InjectRepository(UserEntity)
         private readonly userRepository: Repository<UserEntity>,
+
+        @InjectRepository(RoleEntity)
+        private readonly roleRepository: Repository<RoleEntity>,
     ) {}
 
-    async getAllUsers(): Promise<ApiResponse<UserEntity[]>> {
+    async getAllUsers(): Promise<ApiResponse<UserDto[]>> {
         try {
-            const users = await this.userRepository.find();
+            const users = await this.userRepository.find({
+                relations: ['role', 'referrer'],
+            });
+    
+            const mappedUsers = users.map(user => ({
+                id: user.id,
+                telegramId: user.telegramId,
+                username: user.username,
+                role_id: user.role?.id || null,
+                requestsLeft: user.requestsLeft,
+                subscriptionExpiry: user.subscriptionExpiry,
+                referrer_id: user.referrer?.id || null,
+                createdAt: user.createdAt,
+                updatedAt: user.updatedAt,
+                lastLogin: user.lastLogin,
+            }));
 
-            return new ApiResponse(true, 'Users retrieved successfully', users);
-        } catch (err) {
-            throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ApiResponse(true, 'Users retrieved successfully', mappedUsers);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -31,8 +50,8 @@ export class UsersService {
             }
 
             return new ApiResponse(true, 'User retrieved successfully', user);
-        } catch (err) {
-            throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -45,20 +64,29 @@ export class UsersService {
             }
 
             return new ApiResponse(true, 'User retrieved successfully', user);
-        } catch (err) {
-            throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     async createUser(createUserDto: CreateUserDto): Promise<ApiResponse<UserEntity>> {
         try {
-            const user = this.userRepository.create(createUserDto);
+            const role = await this.roleRepository.findOneBy({ id: 2 });
+
+            if (!role) {
+                throw new HttpException('Default role not found', HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            const user = this.userRepository.create({
+                ...createUserDto,
+                role,
+            });
 
             const savedUser = await this.userRepository.save(user);
 
             return new ApiResponse(true, 'User created successfully', savedUser);
-        } catch (err) {
-            throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -69,8 +97,8 @@ export class UsersService {
             const updatedUser = await this.getUser(id);
 
             return new ApiResponse(true, 'User updated successfully', updatedUser.data);
-        } catch (err) {
-            throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -95,8 +123,8 @@ export class UsersService {
             }
 
             return new ApiResponse(true, 'User deleted successfully', null);
-        } catch (err) {
-            throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

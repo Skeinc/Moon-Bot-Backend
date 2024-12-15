@@ -12,10 +12,9 @@ export class UserDto {
     @IsOptional()
     @IsString()
     username?: string;
-
-    @IsOptional()
-    @IsUUID()
-    roleId?: string;
+    
+    @IsInt()
+    role_id: number;
 
     @IsOptional()
     @IsInt()
@@ -24,6 +23,10 @@ export class UserDto {
     @IsOptional()
     @IsDate()
     subscriptionExpiry?: Date;
+
+    @IsOptional()
+    @IsUUID()
+    referrer_id?: string;
 
     @IsOptional()
     @IsDate()

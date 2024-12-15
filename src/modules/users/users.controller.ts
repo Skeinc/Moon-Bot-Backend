@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/
 import { UsersService } from "./users.service";
 import { ApiResponse } from "@shared/dto/api.dto";
 import { UserEntity } from "@shared/entities/user.entity";
-import { CreateUserDto, UpdateUserDto } from "@shared/dto/user.dto";
+import { CreateUserDto, UpdateUserDto, UserDto } from "@shared/dto/user.dto";
 
 @Controller('users')
 export class UsersController {
@@ -11,7 +11,7 @@ export class UsersController {
     ) {}
 
     @Get()
-    async getAllUsers(): Promise<ApiResponse<UserEntity[]>> {
+    async getAllUsers(): Promise<ApiResponse<UserDto[]>> {
         try {
             return await this.usersService.getAllUsers();
         } catch (error) {
