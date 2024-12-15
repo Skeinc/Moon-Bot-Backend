@@ -4,6 +4,7 @@ import { ApiResponse } from "@shared/dto/api.dto";
 import { CreateReferralDto, ReferralDto, UpdateReferralDto } from "@shared/dto/referral.dto";
 import { ReferralEntity } from "@shared/entities/referral.entity";
 import { UserEntity } from "@shared/entities/user.entity";
+import { mapReferral } from "@shared/utils/mapper.util";
 import { Repository } from "typeorm";
 
 @Injectable()
@@ -22,14 +23,7 @@ export class ReferralsService {
                 relations: ["referrer", "referredUser"],
             });
 
-            const mappedReferrals = referrals.map((referral) => ({
-                id: referral.id,
-                referrerId: referral.referrer?.id || null,
-                referredUserId: referral.referredUser?.id || null,
-                bonusGranted: referral.bonusGranted,
-                createdAt: referral.createdAt,
-                updatedAt: referral.updatedAt,
-            }));
+            const mappedReferrals = referrals.map(mapReferral);
 
             return new ApiResponse(true, "Referrals retrieved successfully", mappedReferrals);
         } catch (error) {
@@ -48,16 +42,7 @@ export class ReferralsService {
                 throw new HttpException("Referral not found", HttpStatus.NOT_FOUND);
             }
 
-            const mappedReferral = {
-                id: referral.id,
-                referrerId: referral.referrer?.id || null,
-                referredUserId: referral.referredUser?.id || null,
-                bonusGranted: referral.bonusGranted,
-                createdAt: referral.createdAt,
-                updatedAt: referral.updatedAt,
-            };
-
-            return new ApiResponse(true, "Referral retrieved successfully", mappedReferral);
+            return new ApiResponse(true, "Referral retrieved successfully", mapReferral(referral));
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }

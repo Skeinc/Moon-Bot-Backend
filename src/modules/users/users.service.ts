@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ApiResponse } from "@shared/dto/api.dto";
-import { CreateUserDto, UpdateUserDto, UserDto } from "@shared/dto/user.dto";
+import { CreateUserDto, GetUserDto, UpdateUserDto, UserDto } from "@shared/dto/user.dto";
 import { RoleEntity } from "@shared/entities/role.entity";
 import { UserEntity } from "@shared/entities/user.entity";
+import { mapUser } from "@shared/utils/mapper.util";
 import { Repository } from "typeorm";
 
 @Injectable()
@@ -16,24 +17,13 @@ export class UsersService {
         private readonly roleRepository: Repository<RoleEntity>,
     ) {}
 
-    async getAllUsers(): Promise<ApiResponse<UserDto[]>> {
+    async getAllUsers(): Promise<ApiResponse<GetUserDto[]>> {
         try {
             const users = await this.userRepository.find({
                 relations: ['role', 'referrer'],
             });
     
-            const mappedUsers = users.map(user => ({
-                id: user.id,
-                telegramId: user.telegramId,
-                username: user.username,
-                roleId: user.role?.id || null,
-                requestsLeft: user.requestsLeft,
-                subscriptionExpiry: user.subscriptionExpiry,
-                referrerId: user.referrer?.id || null,
-                createdAt: user.createdAt,
-                updatedAt: user.updatedAt,
-                lastLogin: user.lastLogin,
-            }));
+            const mappedUsers = users.map(mapUser);
 
             return new ApiResponse(true, 'Users retrieved successfully', mappedUsers);
         } catch (error) {
@@ -41,7 +31,7 @@ export class UsersService {
         }
     }
 
-    async getUser(id: string): Promise<ApiResponse<UserDto>> {
+    async getUser(id: string): Promise<ApiResponse<GetUserDto>> {
         try {
             const user = await this.userRepository.findOne({
                 where: { id },
@@ -51,27 +41,14 @@ export class UsersService {
             if (!user) {
                 throw new HttpException('User  not found', HttpStatus.NOT_FOUND);
             }
-    
-            const mappedUser  = {
-                id: user.id,
-                telegramId: user.telegramId,
-                username: user.username,
-                roleId: user.role?.id || null,
-                requestsLeft: user.requestsLeft,
-                subscriptionExpiry: user.subscriptionExpiry,
-                referrerId: user.referrer?.id || null,
-                createdAt: user.createdAt,
-                updatedAt: user.updatedAt,
-                lastLogin: user.lastLogin,
-            };
 
-            return new ApiResponse(true, 'User retrieved successfully', mappedUser);
+            return new ApiResponse(true, 'User retrieved successfully', mapUser(user));
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    async getUserByTelegramId(telegramId: number): Promise<ApiResponse<UserDto>> {
+    async getUserByTelegramId(telegramId: number): Promise<ApiResponse<GetUserDto>> {
         try {
             const user = await this.userRepository.findOne({
                 where: { telegramId },
@@ -81,21 +58,8 @@ export class UsersService {
             if (!user) {
                 throw new HttpException('User  not found', HttpStatus.NOT_FOUND);
             }
-    
-            const mappedUser  = {
-                id: user.id,
-                telegramId: user.telegramId,
-                username: user.username,
-                roleId: user.role?.id || null,
-                requestsLeft: user.requestsLeft,
-                subscriptionExpiry: user.subscriptionExpiry,
-                referrerId: user.referrer?.id || null,
-                createdAt: user.createdAt,
-                updatedAt: user.updatedAt,
-                lastLogin: user.lastLogin,
-            };
 
-            return new ApiResponse(true, 'User retrieved successfully', mappedUser);
+            return new ApiResponse(true, 'User retrieved successfully', mapUser(user));
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }

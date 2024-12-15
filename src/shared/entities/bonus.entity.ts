@@ -7,10 +7,10 @@ export class BonusEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @ManyToOne(() => UserEntity, { nullable: false, onDelete: 'CASCADE' })
+    @ManyToOne(() => UserEntity, (user) => user.id, { nullable: false, onDelete: 'CASCADE' })
     user: UserEntity;
 
-    @ManyToOne(() => ReferralEntity, { nullable: true, onDelete: 'SET NULL' })
+    @ManyToOne(() => ReferralEntity, (referral) => referral.id, { nullable: true, onDelete: 'SET NULL' })
     referral: ReferralEntity;
 
     @Column({ type: 'varchar', length: '50', nullable: false })
