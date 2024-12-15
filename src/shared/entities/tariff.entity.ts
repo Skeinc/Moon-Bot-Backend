@@ -17,10 +17,10 @@ export class TariffEntity {
     @Column({ type: 'varchar', length: 10, default: 'RUB', nullable: false })
     currency: string;
 
-    @Column({ type: 'integer', nullable: true })
+    @Column({ type: 'int', nullable: true })
     requestLimit: number;
 
-    @Column({ type: 'integer', nullable: true })
+    @Column({ type: 'int', nullable: true })
     duration: number;
 
     @Column({ type: 'boolean', default: true, nullable: false })
