@@ -36,6 +36,9 @@
 |   |   |-- referrals.module.ts
 |   |   |-- referrals.service.ts
 |   |-- requests/           // Логика работы с раскладами пользователей
+|   |   |-- requests.controller.ts
+|   |   |-- requests.module.ts
+|   |   |-- requests.service.ts
 |   |-- roles/              // Управление ролями пользователей
 |   |   |-- roles.controller.ts
 |   |   |-- roles.module.ts
@@ -54,6 +57,7 @@
 |   |   |-- bonus.dto.ts
 |   |   |-- payment-method.dto.ts
 |   |   |-- referral.dto.ts
+|   |   |-- requests.dto.ts
 |   |   |-- role.dto.ts
 |   |   |-- user.dto.ts
 |   |-- entities            // Сущности базы данных, используемые во всем проекте.
@@ -68,6 +72,7 @@
 |   |   |-- user.entity.ts              // Сущность пользователя в БД.
 |   |-- enums            // Перечисления, используемые во всем проекте.
 |   |   |-- bonuses.enum.ts
+|   |   |-- requests.enum.ts
 |   |-- utils            // Утилиты, используемые во всем проекте.
 |   |   |-- mapper.util.ts
 

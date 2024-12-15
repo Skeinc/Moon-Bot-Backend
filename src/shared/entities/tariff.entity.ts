@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
+import { PaymentMethodEntity } from "./payment-method.entity";
 
 @Entity('tariffs')
 export class TariffEntity {
@@ -10,6 +11,9 @@ export class TariffEntity {
 
     @Column({ type: 'text', nullable: true })
     description: string;
+
+    @ManyToOne(() => PaymentMethodEntity, (paymentMethod) => paymentMethod.id, { nullable: false, onDelete: 'RESTRICT' })
+    paymentMethod: PaymentMethodEntity;
 
     @Column({ type: 'numeric', precision: 10, scale: 2, nullable: false })
     price: number;

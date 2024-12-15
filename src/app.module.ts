@@ -2,6 +2,7 @@ import { DatabaseModule } from '@database/database.module';
 import { BonusesModule } from '@modules/bonuses/bonuses.module';
 import { PaymentMethodsModule } from '@modules/payment-methods/payment-methods.module';
 import { ReferralsModule } from '@modules/referrals/referrals.module';
+import { RequestsModule } from '@modules/requests/requests.module';
 import { RolesModule } from '@modules/roles/roles.module';
 import { UsersModule } from '@modules/users/users.module';
 import { Module } from '@nestjs/common';
@@ -11,6 +12,7 @@ import { Module } from '@nestjs/common';
 		PaymentMethodsModule,
 		ReferralsModule,
 		DatabaseModule,
+		RequestsModule,
 		BonusesModule,
 		UsersModule,
 		RolesModule,

@@ -1,10 +1,13 @@
 import { GetBonusDto } from "@shared/dto/bonus.dto";
 import { ReferralDto } from "@shared/dto/referral.dto";
+import { GetRequestDto } from "@shared/dto/request.dto";
 import { GetUserDto } from "@shared/dto/user.dto";
 import { BonusEntity } from "@shared/entities/bonus.entity";
 import { ReferralEntity } from "@shared/entities/referral.entity";
+import { RequestEntity } from "@shared/entities/request.entity";
 import { UserEntity } from "@shared/entities/user.entity";
 import { BonusTypeEnum } from "@shared/enums/bonuses.enum";
+import { RequestStatusesEnum, RequestTypesEnum } from "@shared/enums/requests.enum";
 
 export function mapUser(user: UserEntity): GetUserDto {
     return {
@@ -42,5 +45,20 @@ export function mapBonus(bonus: BonusEntity): GetBonusDto {
         expiresAt: bonus.expiresAt,
         createdAt: bonus.createdAt,
         updatedAt: bonus.updatedAt,
+    };
+}
+
+export function mapRequest(request: RequestEntity): GetRequestDto {
+    return {
+        id: request.id,
+        userId: request.user.id,
+        type: request.type as RequestTypesEnum,
+        status: request.status as RequestStatusesEnum,
+        requestData: request.requestData,
+        responseData: request.responseData,
+        isPaid: request.isPaid,
+        createdAt: request.createdAt,
+        updatedAt: request.updatedAt,
+        finishedAt: request.finishedAt,
     };
 }
