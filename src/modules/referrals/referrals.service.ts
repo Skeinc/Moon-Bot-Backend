@@ -128,6 +128,9 @@ export class ReferralsService {
             });
     
             const savedReferral = await this.referralRepository.save(referral);
+
+            referredUser.referrer = referrer;
+            await this.userRepository.save(referredUser );
     
             return new ApiResponse(true, "Referral created successfully", savedReferral);
         } catch (error) {

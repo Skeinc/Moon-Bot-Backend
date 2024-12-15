@@ -6,10 +6,10 @@ export class ReferralEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @ManyToOne(() => UserEntity, { nullable: false, onDelete: 'CASCADE' })
+    @ManyToOne(() => UserEntity, (user) => user.id, { nullable: false, onDelete: 'CASCADE' })
     referrer: UserEntity;
 
-    @ManyToOne(() => UserEntity, { nullable: false, onDelete: 'CASCADE' })
+    @ManyToOne(() => UserEntity, (user) => user.id, { nullable: false, onDelete: 'CASCADE' })
     referredUser: UserEntity;
 
     @Column({ type: 'boolean', default: false, nullable: false })

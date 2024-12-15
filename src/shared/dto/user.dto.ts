@@ -2,9 +2,9 @@ import { PartialType } from "@nestjs/mapped-types";
 import { IsDate, IsInt, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
 
 export class UserDto {
-    @IsOptional()
+    @IsNotEmpty()
     @IsUUID()
-    id?: string;
+    id: string;
 
     @IsInt()
     telegramId: number;
@@ -13,6 +13,7 @@ export class UserDto {
     @IsString()
     username?: string;
     
+    @IsNotEmpty()
     @IsInt()
     roleId: number;
 

@@ -28,6 +28,9 @@
 |   |-- bonuses/            // Управление бонусами для пользователей
 |   |-- cards/              // Логика работы с картами
 |   |-- payment-methods/    // Логика управления методами оплаты
+|   |   |-- payment-methods.controller.ts
+|   |   |-- payment-methods.module.ts
+|   |   |-- payment-methods.service.ts
 |   |-- referrals/          // Работа с реферальной программой
 |   |   |-- referrals.controller.ts
 |   |   |-- referrals.module.ts
@@ -48,6 +51,7 @@
 |-- /shared
 |   |-- dto/                // Data Transfer Objects (DTO) для определения входящих и исходящих данных.
 |   |   |-- api.dto.ts
+|   |   |-- payment-method.dto.ts
 |   |   |-- referral.dto.ts
 |   |   |-- role.dto.ts
 |   |   |-- user.dto.ts

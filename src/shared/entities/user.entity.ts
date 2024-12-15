@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { RoleEntity } from "./role.entity";
+import { ReferralEntity } from "./referral.entity";
 
 @Entity('users')
 export class UserEntity {

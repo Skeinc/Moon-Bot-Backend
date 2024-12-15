@@ -2,9 +2,9 @@ import { PartialType } from "@nestjs/mapped-types";
 import { IsBoolean, IsDate, IsNotEmpty, IsOptional, IsUUID } from "class-validator";
 
 export class ReferralDto {
-    @IsOptional()
+    @IsNotEmpty()
     @IsUUID()
-    id?: string;
+    id: string;
 
     @IsUUID()
     @IsNotEmpty()
@@ -14,9 +14,9 @@ export class ReferralDto {
     @IsNotEmpty()
     referredUserId: string;
 
-    @IsOptional()
+    @IsNotEmpty()
     @IsBoolean()
-    bonusGranted?: boolean;
+    bonusGranted: boolean;
 
     @IsOptional()
     @IsDate()

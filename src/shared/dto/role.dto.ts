@@ -2,9 +2,9 @@ import { PartialType } from "@nestjs/mapped-types";
 import { IsOptional, IsString, IsNotEmpty, IsInt } from "class-validator";
 
 export class RoleDto {
-    @IsOptional()
+    @IsNotEmpty()
     @IsInt()
-    id?: number;
+    id: number;
 
     @IsNotEmpty()
     @IsString()

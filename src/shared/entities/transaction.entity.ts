@@ -23,7 +23,7 @@ export class TransactionEntity {
     @Column({ type: 'varchar', length: 20, nullable: false })
     status: string;
 
-    @ManyToOne(() => PaymentMethodEntity, { nullable: false, onDelete: 'RESTRICT' })
+    @ManyToOne(() => PaymentMethodEntity, (paymentMethod) => paymentMethod.id, { nullable: false, onDelete: 'RESTRICT' })
     paymentMethod: PaymentMethodEntity;
 
     @Column({ type: 'varchar', length: 255, nullable: true })
