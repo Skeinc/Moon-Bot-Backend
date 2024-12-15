@@ -14,7 +14,7 @@ export class UserDto {
     username?: string;
     
     @IsInt()
-    role_id: number;
+    roleId: number;
 
     @IsOptional()
     @IsInt()
@@ -26,7 +26,7 @@ export class UserDto {
 
     @IsOptional()
     @IsUUID()
-    referrer_id?: string;
+    referrerId?: string;
 
     @IsOptional()
     @IsDate()
@@ -49,9 +49,3 @@ export class CreateUserDto extends UserDto {
 }
 
 export class UpdateUserDto extends PartialType(UserDto) {}
-
-export class DeleteUserDto {
-    @IsNotEmpty()
-    @IsUUID()
-    id: string;
-}

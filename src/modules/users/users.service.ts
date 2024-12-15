@@ -26,10 +26,10 @@ export class UsersService {
                 id: user.id,
                 telegramId: user.telegramId,
                 username: user.username,
-                role_id: user.role?.id || null,
+                roleId: user.role?.id || null,
                 requestsLeft: user.requestsLeft,
                 subscriptionExpiry: user.subscriptionExpiry,
-                referrer_id: user.referrer?.id || null,
+                referrerId: user.referrer?.id || null,
                 createdAt: user.createdAt,
                 updatedAt: user.updatedAt,
                 lastLogin: user.lastLogin,
@@ -41,29 +41,61 @@ export class UsersService {
         }
     }
 
-    async getUser(id: string): Promise<ApiResponse<UserEntity>> {
+    async getUser(id: string): Promise<ApiResponse<UserDto>> {
         try {
-            const user = await this.userRepository.findOneBy({ id });
-
+            const user = await this.userRepository.findOne({
+                where: { id },
+                relations: ['role', 'referrer'],
+            });
+    
             if (!user) {
-                throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+                throw new HttpException('User  not found', HttpStatus.NOT_FOUND);
             }
+    
+            const mappedUser  = {
+                id: user.id,
+                telegramId: user.telegramId,
+                username: user.username,
+                roleId: user.role?.id || null,
+                requestsLeft: user.requestsLeft,
+                subscriptionExpiry: user.subscriptionExpiry,
+                referrerId: user.referrer?.id || null,
+                createdAt: user.createdAt,
+                updatedAt: user.updatedAt,
+                lastLogin: user.lastLogin,
+            };
 
-            return new ApiResponse(true, 'User retrieved successfully', user);
+            return new ApiResponse(true, 'User retrieved successfully', mappedUser);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    async getUserByTelegramId(telegramId: number): Promise<ApiResponse<UserEntity>> {
+    async getUserByTelegramId(telegramId: number): Promise<ApiResponse<UserDto>> {
         try {
-            const user = await this.userRepository.findOneBy({ telegramId });
-
+            const user = await this.userRepository.findOne({
+                where: { telegramId },
+                relations: ['role', 'referrer'],
+            });
+    
             if (!user) {
-                throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+                throw new HttpException('User  not found', HttpStatus.NOT_FOUND);
             }
+    
+            const mappedUser  = {
+                id: user.id,
+                telegramId: user.telegramId,
+                username: user.username,
+                roleId: user.role?.id || null,
+                requestsLeft: user.requestsLeft,
+                subscriptionExpiry: user.subscriptionExpiry,
+                referrerId: user.referrer?.id || null,
+                createdAt: user.createdAt,
+                updatedAt: user.updatedAt,
+                lastLogin: user.lastLogin,
+            };
 
-            return new ApiResponse(true, 'User retrieved successfully', user);
+            return new ApiResponse(true, 'User retrieved successfully', mappedUser);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -90,7 +122,7 @@ export class UsersService {
         }
     }
 
-    async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<ApiResponse<UserEntity>> {
+    async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<ApiResponse<UserDto>> {
         try {
             await this.userRepository.update({ id }, updateUserDto);
 
@@ -102,7 +134,7 @@ export class UsersService {
         }
     }
 
-    async updateUserByTelegramId(telegramId: number, updateUserDto: UpdateUserDto): Promise<ApiResponse<UserEntity>> {
+    async updateUserByTelegramId(telegramId: number, updateUserDto: UpdateUserDto): Promise<ApiResponse<UserDto>> {
         try {
             await this.userRepository.update({ telegramId }, updateUserDto);
 

@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common"
 import { RolesService } from "./roles.service";
 import { ApiResponse } from "@shared/dto/api.dto";
 import { RoleEntity } from "@shared/entities/role.entity";
-import { CreateRoleDto, UpdateRoleDto } from "@shared/dto/role.dto";
+import { CreateRoleDto, RoleDto, UpdateRoleDto } from "@shared/dto/role.dto";
 
 @Controller('roles')
 export class RolesController {
@@ -11,7 +11,7 @@ export class RolesController {
     ) {}
 
     @Get()
-    async getAllRoles(): Promise<ApiResponse<RoleEntity[]>> {
+    async getAllRoles(): Promise<ApiResponse<RoleDto[]>> {
         try {
             return await this.rolesService.getAllRoles();
         } catch (error) {
@@ -20,7 +20,7 @@ export class RolesController {
     }
 
     @Get(':id')
-    async getRole(@Param('id') id: number): Promise<ApiResponse<RoleEntity>> {
+    async getRole(@Param('id') id: number): Promise<ApiResponse<RoleDto>> {
         try {
             return await this.rolesService.getRole(id);
         } catch (error) {
@@ -38,7 +38,7 @@ export class RolesController {
     }
 
     @Put()
-    async updateRole(@Body() updateRoleDto: UpdateRoleDto): Promise<ApiResponse<RoleEntity>> {
+    async updateRole(@Body() updateRoleDto: UpdateRoleDto): Promise<ApiResponse<RoleDto>> {
         try {
             if (!updateRoleDto.id) {
                 return new ApiResponse(false, 'Role ID is required in the request body', null);

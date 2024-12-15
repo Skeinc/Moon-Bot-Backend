@@ -22,9 +22,3 @@ export class CreateRoleDto extends RoleDto {
 }
 
 export class UpdateRoleDto extends PartialType(RoleDto) {}
-
-export class DeleteRoleDto {
-    @IsNotEmpty()
-    @IsInt()
-    id: number;
-}

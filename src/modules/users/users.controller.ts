@@ -20,7 +20,7 @@ export class UsersController {
     }
 
     @Get(':id')
-    async getUser(@Param('id') id: string): Promise<ApiResponse<UserEntity>> {
+    async getUser(@Param('id') id: string): Promise<ApiResponse<UserDto>> {
         try {
             return await this.usersService.getUser(id);
         } catch (error) {
@@ -29,7 +29,7 @@ export class UsersController {
     }
 
     @Get('/by-telegram-id/:telegramId')
-    async getUserByTelegramId(@Param('telegramId') telegramId: number): Promise<ApiResponse<UserEntity>> {
+    async getUserByTelegramId(@Param('telegramId') telegramId: number): Promise<ApiResponse<UserDto>> {
         try {
             return await this.usersService.getUserByTelegramId(telegramId);
         } catch (error) {
@@ -47,9 +47,7 @@ export class UsersController {
     }
 
     @Put()
-    async updateUser(
-        @Body() updateUserDto: UpdateUserDto,
-    ): Promise<ApiResponse<UserEntity>> {
+    async updateUser(@Body() updateUserDto: UpdateUserDto): Promise<ApiResponse<UserDto>> {
         try {
             if (!updateUserDto.id) {
                 return new ApiResponse(false, 'User ID is required in the request body', null);
@@ -62,9 +60,7 @@ export class UsersController {
     }
 
     @Put('/by-telegram-id')
-    async updateUserByTelegramId(
-        @Body() updateUserDto: UpdateUserDto,
-    ): Promise<ApiResponse<UserEntity>> {
+    async updateUserByTelegramId(@Body() updateUserDto: UpdateUserDto): Promise<ApiResponse<UserDto>> {
         try {
             if(!updateUserDto.telegramId) {
                 return new ApiResponse(false, 'Telegram ID is required in the request body', null);

@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ApiResponse } from "@shared/dto/api.dto";
-import { CreateRoleDto, UpdateRoleDto } from "@shared/dto/role.dto";
+import { CreateRoleDto, RoleDto, UpdateRoleDto } from "@shared/dto/role.dto";
 import { RoleEntity } from "@shared/entities/role.entity";
 import { Repository } from "typeorm";
 
@@ -12,7 +12,7 @@ export class RolesService {
         private readonly roleRepository: Repository<RoleEntity>
     ) {}
 
-    async getAllRoles(): Promise<ApiResponse<RoleEntity[]>> {
+    async getAllRoles(): Promise<ApiResponse<RoleDto[]>> {
         try {
             const roles = await this.roleRepository.find();
 
@@ -22,7 +22,7 @@ export class RolesService {
         }
     }
 
-    async getRole(id: number): Promise<ApiResponse<RoleEntity>> {
+    async getRole(id: number): Promise<ApiResponse<RoleDto>> {
         try {
             const role = await this.roleRepository.findOneBy({ id });
 
@@ -48,7 +48,7 @@ export class RolesService {
         }
     }
 
-    async updateRole(id: number, updateRoleDto: UpdateRoleDto): Promise<ApiResponse<RoleEntity>> {
+    async updateRole(id: number, updateRoleDto: UpdateRoleDto): Promise<ApiResponse<RoleDto>> {
         try {
             await this.roleRepository.update({ id }, updateRoleDto);
 

@@ -12,7 +12,7 @@ export class UserEntity {
     @Column({ type: 'varchar', length: 255, nullable: true })
     username: string;
 
-    @ManyToOne(() => RoleEntity, { nullable: true, onDelete: 'SET NULL' })
+    @ManyToOne(() => RoleEntity, (role) => role.id, { nullable: true, onDelete: 'SET NULL' })
     role: RoleEntity;
 
     @Column({ type: 'int', default: 3, nullable: false })

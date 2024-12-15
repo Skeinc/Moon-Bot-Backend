@@ -29,6 +29,9 @@
 |   |-- cards/              // Логика работы с картами
 |   |-- payment-methods/    // Логика управления методами оплаты
 |   |-- referrals/          // Работа с реферальной программой
+|   |   |-- referrals.controller.ts
+|   |   |-- referrals.module.ts
+|   |   |-- referrals.service.ts
 |   |-- requests/           // Логика работы с раскладами пользователей
 |   |-- roles/              // Управление ролями пользователей
 |   |   |-- roles.controller.ts
@@ -45,6 +48,7 @@
 |-- /shared
 |   |-- dto/                // Data Transfer Objects (DTO) для определения входящих и исходящих данных.
 |   |   |-- api.dto.ts
+|   |   |-- referral.dto.ts
 |   |   |-- role.dto.ts
 |   |   |-- user.dto.ts
 |   |-- entities            // Сущности базы данных, используемые во всем проекте.
