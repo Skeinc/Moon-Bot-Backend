@@ -1,10 +1,12 @@
 import { GetBonusDto } from "@shared/dto/bonus.dto";
 import { ReferralDto } from "@shared/dto/referral.dto";
 import { GetRequestDto } from "@shared/dto/request.dto";
+import { GetTariffDto } from "@shared/dto/tariff.dto";
 import { GetUserDto } from "@shared/dto/user.dto";
 import { BonusEntity } from "@shared/entities/bonus.entity";
 import { ReferralEntity } from "@shared/entities/referral.entity";
 import { RequestEntity } from "@shared/entities/request.entity";
+import { TariffEntity } from "@shared/entities/tariff.entity";
 import { UserEntity } from "@shared/entities/user.entity";
 import { BonusTypeEnum } from "@shared/enums/bonuses.enum";
 import { RequestStatusesEnum, RequestTypesEnum } from "@shared/enums/requests.enum";
@@ -60,5 +62,22 @@ export function mapRequest(request: RequestEntity): GetRequestDto {
         createdAt: request.createdAt,
         updatedAt: request.updatedAt,
         finishedAt: request.finishedAt,
+    };
+}
+
+export function mapTariff(tariff: TariffEntity): GetTariffDto {
+    return {
+        id: tariff.id,
+        name: tariff.name,
+        description: tariff.description,
+        callback: tariff.callback,
+        paymentMethodId: tariff.paymentMethod.id,
+        price: tariff.price,
+        currency: tariff.currency,
+        requestLimit: tariff.requestLimit,
+        duration: tariff.duration,
+        isActive: tariff.isActive,
+        createdAt: tariff.createdAt,
+        updatedAt: tariff.updatedAt,
     };
 }

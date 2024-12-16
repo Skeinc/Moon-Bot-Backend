@@ -44,6 +44,9 @@
 |   |   |-- roles.module.ts
 |   |   |-- roles.service.ts
 |   |-- tariffs/            // Работа с тарифами, управление подписками и их условиями.
+|   |   |-- tariffs.controller.ts
+|   |   |-- tariffs.module.ts
+|   |   |-- tariffs.service.ts
 |   |-- transactions/       // Логика управления транзакциями
 |   |-- users/              // Управление пользователями
 |   |   |-- users.controller.ts
@@ -59,6 +62,7 @@
 |   |   |-- referral.dto.ts
 |   |   |-- requests.dto.ts
 |   |   |-- role.dto.ts
+|   |   |-- tariff.dto.ts
 |   |   |-- user.dto.ts
 |   |-- entities            // Сущности базы данных, используемые во всем проекте.
 |   |   |-- bonus.entity.ts             // Сущность бонуса в БД.

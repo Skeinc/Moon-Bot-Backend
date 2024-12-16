@@ -25,7 +25,7 @@ export class UsersService {
     
             const mappedUsers = users.map(mapUser);
 
-            return new ApiResponse(true, 'Users retrieved successfully', mappedUsers);
+            return new ApiResponse(true, 'All users retrieved successfully', mappedUsers);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -42,7 +42,7 @@ export class UsersService {
                 throw new HttpException('User  not found', HttpStatus.NOT_FOUND);
             }
 
-            return new ApiResponse(true, 'User retrieved successfully', mapUser(user));
+            return new ApiResponse(true, 'User retrieved successfully by ID', mapUser(user));
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -59,7 +59,7 @@ export class UsersService {
                 throw new HttpException('User  not found', HttpStatus.NOT_FOUND);
             }
 
-            return new ApiResponse(true, 'User retrieved successfully', mapUser(user));
+            return new ApiResponse(true, 'User retrieved successfully by telegram ID', mapUser(user));
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -104,7 +104,7 @@ export class UsersService {
 
             const updatedUser = await this.getUserByTelegramId(telegramId);
 
-            return new ApiResponse(true, 'User updated successfully', updatedUser.data);
+            return new ApiResponse(true, 'User updated successfully by telegram ID', updatedUser.data);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
