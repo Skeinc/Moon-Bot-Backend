@@ -48,10 +48,10 @@ export class TariffsService {
         }
     }
 
-    async getTariffsByPaymentMethod(paymentMethodId: string): Promise<ApiResponse<GetTariffDto[]>> {
+    async getTariffsByPaymentMethod(paymentMethodId: number): Promise<ApiResponse<GetTariffDto[]>> {
         try {
             const tariffs = await this.tariffRepository.find({
-                where: { paymentMethod: { id: paymentMethodId } } as any,
+                where: { paymentMethod: { id: paymentMethodId } },
                 relations: ['paymentMethod'],
             });
 

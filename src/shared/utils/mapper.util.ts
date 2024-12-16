@@ -2,14 +2,17 @@ import { GetBonusDto } from "@shared/dto/bonus.dto";
 import { ReferralDto } from "@shared/dto/referral.dto";
 import { GetRequestDto } from "@shared/dto/request.dto";
 import { GetTariffDto } from "@shared/dto/tariff.dto";
+import { GetTransactionDto } from "@shared/dto/transaction.dto";
 import { GetUserDto } from "@shared/dto/user.dto";
 import { BonusEntity } from "@shared/entities/bonus.entity";
 import { ReferralEntity } from "@shared/entities/referral.entity";
 import { RequestEntity } from "@shared/entities/request.entity";
 import { TariffEntity } from "@shared/entities/tariff.entity";
+import { TransactionEntity } from "@shared/entities/transaction.entity";
 import { UserEntity } from "@shared/entities/user.entity";
 import { BonusTypeEnum } from "@shared/enums/bonuses.enum";
 import { RequestStatusesEnum, RequestTypesEnum } from "@shared/enums/requests.enum";
+import { TransactionStatusesEnum, TransactionTypesEnum } from "@shared/enums/transaction.enum";
 
 export function mapUser(user: UserEntity): GetUserDto {
     return {
@@ -79,5 +82,23 @@ export function mapTariff(tariff: TariffEntity): GetTariffDto {
         isActive: tariff.isActive,
         createdAt: tariff.createdAt,
         updatedAt: tariff.updatedAt,
+    };
+}
+
+export function mapTransaction(transaction: TransactionEntity): GetTransactionDto {
+    return {
+        id: transaction.id,
+        userId: transaction.user.id,
+        amount: transaction.amount,
+        currency: transaction.currency,
+        type: transaction.type as TransactionTypesEnum,
+        status: transaction.status as TransactionStatusesEnum,
+        paymentMethodId: transaction.paymentMethod ? transaction.paymentMethod.id : null,
+        transactionId: transaction.transactionId ? transaction.transactionId : null,
+        tariffId: transaction.tariff ? transaction.tariff.id : null,
+        description: transaction.description,
+        createdAt: transaction.createdAt,
+        updatedAt: transaction.updatedAt,
+        finishedAt: transaction.finishedAt,
     };
 }

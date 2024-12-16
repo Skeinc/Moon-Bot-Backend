@@ -8,7 +8,7 @@ export class TransactionEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @ManyToOne(() => UserEntity, { nullable: false, onDelete: 'CASCADE' })
+    @ManyToOne(() => UserEntity, (user) => user.id, { nullable: false, onDelete: 'CASCADE' })
     user: UserEntity;
 
     @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
@@ -29,7 +29,7 @@ export class TransactionEntity {
     @Column({ type: 'varchar', length: 255, nullable: true })
     transactionId: string;
 
-    @ManyToOne(() => TariffEntity, { nullable: true, onDelete: 'SET NULL' })
+    @ManyToOne(() => TariffEntity, (tariff) => tariff.id, { nullable: true, onDelete: 'SET NULL' })
     tariff: TariffEntity;
 
     @Column({ type: 'text', nullable: true })

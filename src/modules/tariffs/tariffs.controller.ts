@@ -29,7 +29,7 @@ export class TariffsController {
     }
 
     @Get('/by-payment-method/:paymentMethodId')
-    async getTariffsByPaymentMethod(@Param('paymentMethodId') paymentMethodId: string): Promise<ApiResponse<GetTariffDto[]>> {
+    async getTariffsByPaymentMethod(@Param('paymentMethodId') paymentMethodId: number): Promise<ApiResponse<GetTariffDto[]>> {
         try {
             return await this.tariffsService.getTariffsByPaymentMethod(paymentMethodId);
         } catch (error) {
@@ -55,7 +55,6 @@ export class TariffsController {
 
             return await this.tariffsService.updateTariff(updateTariffDto.id, updateTariffDto);
         } catch (error) {
-            console.log(error);
             return new ApiResponse(false, `Failed to update tariff with ID ${updateTariffDto.id}`, null);
         }
     }

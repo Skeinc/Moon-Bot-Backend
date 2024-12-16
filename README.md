@@ -26,7 +26,6 @@
 |   |   |-- bonuses.controller.ts
 |   |   |-- bonuses.module.ts
 |   |   |-- bonuses.service.ts
-|   |-- cards/              // Логика работы с картами
 |   |-- payment-methods/    // Логика управления методами оплаты
 |   |   |-- payment-methods.controller.ts
 |   |   |-- payment-methods.module.ts
@@ -48,6 +47,9 @@
 |   |   |-- tariffs.module.ts
 |   |   |-- tariffs.service.ts
 |   |-- transactions/       // Логика управления транзакциями
+|   |   |-- transactions.controller.ts
+|   |   |-- transactions.module.ts
+|   |   |-- transactions.service.ts
 |   |-- users/              // Управление пользователями
 |   |   |-- users.controller.ts
 |   |   |-- users.module.ts
@@ -63,10 +65,10 @@
 |   |   |-- requests.dto.ts
 |   |   |-- role.dto.ts
 |   |   |-- tariff.dto.ts
+|   |   |-- transactions.dto.ts
 |   |   |-- user.dto.ts
 |   |-- entities            // Сущности базы данных, используемые во всем проекте.
 |   |   |-- bonus.entity.ts             // Сущность бонуса в БД.
-|   |   |-- card.entity.ts              // Сущность карты таро в БД.
 |   |   |-- payment-method.entity.ts    // Сущность способа оплаты в БД.
 |   |   |-- referral.entity.ts          // Сущность реферальной системы в БД.
 |   |   |-- request.entity.ts           // Сущность расклада в БД.
@@ -77,6 +79,7 @@
 |   |-- enums            // Перечисления, используемые во всем проекте.
 |   |   |-- bonuses.enum.ts
 |   |   |-- requests.enum.ts
+|   |   |-- transactions.enum.ts
 |   |-- utils            // Утилиты, используемые во всем проекте.
 |   |   |-- mapper.util.ts
 
