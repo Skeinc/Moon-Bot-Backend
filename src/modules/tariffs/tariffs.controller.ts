@@ -53,8 +53,13 @@ export class TariffsController {
                 return new ApiResponse(false, 'Tariff ID is required in the request body', null);
             }
 
+            if(!updateTariffDto.paymentMethodId) {
+                return new ApiResponse(false, 'Payment method ID is required in the request body', null); 
+            }
+
             return await this.tariffsService.updateTariff(updateTariffDto.id, updateTariffDto);
         } catch (error) {
+            console.log(error);
             return new ApiResponse(false, `Failed to update tariff with ID ${updateTariffDto.id}`, null);
         }
     }

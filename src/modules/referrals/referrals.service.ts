@@ -94,7 +94,7 @@ export class ReferralsService {
 
     async createReferral(createReferralDto: CreateReferralDto): Promise<ApiResponse<ReferralEntity>> {
         try {
-            const { referrerId, referredUserId } = createReferralDto;
+            const { referrerId, referredUserId, bonusCount } = createReferralDto;
     
             const referrer = await this.userRepository.findOne({ where: { id: referrerId } });
             const referredUser = await this.userRepository.findOne({ where: { id: referredUserId } });
@@ -110,6 +110,7 @@ export class ReferralsService {
             const referral = this.referralRepository.create({
                 referrer,
                 referredUser,
+                bonusCount: bonusCount || 0,
             });
     
             const savedReferral = await this.referralRepository.save(referral);

@@ -35,6 +35,10 @@ export class CreateReferralDto {
     @IsUUID()
     @IsNotEmpty()
     referredUserId: string;
+
+    @IsOptional()
+    @IsNumber()
+    bonusCount: number;
 }
 
 export class UpdateReferralDto extends PartialType(ReferralDto) {}
