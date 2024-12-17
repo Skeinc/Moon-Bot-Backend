@@ -23,6 +23,7 @@ export function mapUser(user: UserEntity): GetUserDto {
         requestsLeft: user.requestsLeft,
         subscriptionExpiry: user.subscriptionExpiry,
         referrerId: user.referrer?.id || null,
+        referralLink: user.referralLink,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
         lastLogin: user.lastLogin,
@@ -34,7 +35,7 @@ export function mapReferral(referral: ReferralEntity): ReferralDto {
         id: referral.id,
         referrerId: referral.referrer?.id || null,
         referredUserId: referral.referredUser?.id || null,
-        bonusGranted: referral.bonusGranted,
+        bonusCount: referral.bonusCount,
         createdAt: referral.createdAt,
         updatedAt: referral.updatedAt,
     }

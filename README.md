@@ -18,7 +18,7 @@
 
 // Содержит код, связанный с подключением к базе данных.
 |-- /database
-|   |-- database.module.ts
+|   |-- database.module.ts  // Модуль подключения к базе данных, настройка ORM и подключения к PostgreSQL.
 
 // Каждый модуль соответствует бизнес-логике приложения. Содержит контроллеры, сервисы и специфичные для модуля компоненты.
 |-- /modules
@@ -58,15 +58,15 @@
 // Содержит компоненты, используемые в разных модулях приложения.
 |-- /shared
 |   |-- dto/                // Data Transfer Objects (DTO) для определения входящих и исходящих данных.
-|   |   |-- api.dto.ts
-|   |   |-- bonus.dto.ts
-|   |   |-- payment-method.dto.ts
-|   |   |-- referral.dto.ts
-|   |   |-- requests.dto.ts
-|   |   |-- role.dto.ts
-|   |   |-- tariff.dto.ts
-|   |   |-- transactions.dto.ts
-|   |   |-- user.dto.ts
+|   |   |-- api.dto.ts                  // Общий ответ API с флагом успеха/ошибки, сообщением и данными.
+|   |   |-- bonus.dto.ts                // Data Transfer Objects (DTO) для бонусов.
+|   |   |-- payment-method.dto.ts       // Data Transfer Objects (DTO) для способов оплаты.
+|   |   |-- referral.dto.ts             // Data Transfer Objects (DTO) для реферальной системы.
+|   |   |-- requests.dto.ts             // Data Transfer Objects (DTO) для раскладов.
+|   |   |-- role.dto.ts                 // Data Transfer Objects (DTO) для ролей.
+|   |   |-- tariff.dto.ts               // Data Transfer Objects (DTO) для тарифов.
+|   |   |-- transactions.dto.ts         // Data Transfer Objects (DTO) для транзакций.
+|   |   |-- user.dto.ts                 // Data Transfer Objects (DTO) для пользователей.
 |   |-- entities            // Сущности базы данных, используемые во всем проекте.
 |   |   |-- bonus.entity.ts             // Сущность бонуса в БД.
 |   |   |-- payment-method.entity.ts    // Сущность способа оплаты в БД.
@@ -77,11 +77,12 @@
 |   |   |-- transactions.entity.ts      // Сущность транзакции в БД.
 |   |   |-- user.entity.ts              // Сущность пользователя в БД.
 |   |-- enums            // Перечисления, используемые во всем проекте.
-|   |   |-- bonuses.enum.ts
-|   |   |-- requests.enum.ts
-|   |   |-- transactions.enum.ts
+|   |   |-- bonuses.enum.ts             // Перечисления для бонусов.
+|   |   |-- requests.enum.ts            // Перечисления для раскладов.
+|   |   |-- transactions.enum.ts        // Перечисления для транзакций.
 |   |-- utils            // Утилиты, используемые во всем проекте.
-|   |   |-- mapper.util.ts
+|   |   |-- mapper.util.ts              // Вспомогательные функции для маппинга данных между сущностями и DTO.
+|   |   |-- referral-link.util.ts              // Вспомогательная функция для генерации реферальной ссылки.
 
 // Главный модуль приложения. Импортирует все модули, включая модули базы данных, бизнес-логики и общие модули.
 |-- app.module.ts

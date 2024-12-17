@@ -25,6 +25,9 @@ export class UserEntity {
     @ManyToOne(() => UserEntity, { nullable: true, onDelete: 'SET NULL' })
     referrer: UserEntity;
 
+    @Column({ type: 'varchar', length: 255, nullable: false })
+    referralLink: string;
+
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
 

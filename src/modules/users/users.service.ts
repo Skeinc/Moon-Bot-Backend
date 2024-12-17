@@ -5,6 +5,7 @@ import { CreateUserDto, GetUserDto, UpdateUserDto, UserDto } from "@shared/dto/u
 import { RoleEntity } from "@shared/entities/role.entity";
 import { UserEntity } from "@shared/entities/user.entity";
 import { mapUser } from "@shared/utils/mapper.util";
+import { generateReferralLink } from "@shared/utils/referral-link.util";
 import { Repository } from "typeorm";
 
 @Injectable()
@@ -77,6 +78,8 @@ export class UsersService {
                 ...createUserDto,
                 role,
             });
+
+            user.referralLink = generateReferralLink(user.telegramId.toString());
 
             const savedUser = await this.userRepository.save(user);
 

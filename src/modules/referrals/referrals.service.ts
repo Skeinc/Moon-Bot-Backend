@@ -59,7 +59,7 @@ export class ReferralsService {
                 id: referral.id,
                 referrerId: referrerId || null,
                 referredUserId: referral.referredUser?.id || null,
-                bonusGranted: referral.bonusGranted,
+                bonusCount: referral.bonusCount,
                 createdAt: referral.createdAt,
                 updatedAt: referral.updatedAt,
             }));
@@ -81,7 +81,7 @@ export class ReferralsService {
                 id: referral.id,
                 referrerId: referral.referrer?.id || null,
                 referredUserId: referredUserId || null,
-                bonusGranted: referral.bonusGranted,
+                bonusCount: referral.bonusCount,
                 createdAt: referral.createdAt,
                 updatedAt: referral.updatedAt,
             }));

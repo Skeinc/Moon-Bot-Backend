@@ -29,6 +29,10 @@ export class UserDto {
     @IsUUID()
     referrerId?: string;
 
+    @IsNotEmpty()
+    @IsString()
+    referralLink: string;
+
     @IsOptional()
     @IsDate()
     createdAt?: Date;

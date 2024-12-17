@@ -12,8 +12,8 @@ export class ReferralEntity {
     @ManyToOne(() => UserEntity, (user) => user.id, { nullable: false, onDelete: 'CASCADE' })
     referredUser: UserEntity;
 
-    @Column({ type: 'boolean', default: false, nullable: false })
-    bonusGranted: boolean;
+    @Column({ type: 'int', default: 0, nullable: false })
+    bonusCount: number;
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
