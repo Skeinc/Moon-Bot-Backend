@@ -1,6 +1,8 @@
+import { OpenAIModule } from '@config/openAI.module';
 import { DatabaseModule } from '@database/database.module';
 import { BonusesModule } from '@modules/bonuses/bonuses.module';
 import { PaymentMethodsModule } from '@modules/payment-methods/payment-methods.module';
+import { PaymentsModule } from '@modules/payments/payments.module';
 import { ReferralsModule } from '@modules/referrals/referrals.module';
 import { RequestsModule } from '@modules/requests/requests.module';
 import { RolesModule } from '@modules/roles/roles.module';
@@ -15,9 +17,11 @@ import { Module } from '@nestjs/common';
 		TransactionsModule,
 		ReferralsModule,
 		DatabaseModule,
+		PaymentsModule,
 		RequestsModule,
 		BonusesModule,
 		TariffsModule,
+		OpenAIModule,
 		UsersModule,
 		RolesModule,
 	],

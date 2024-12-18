@@ -30,6 +30,10 @@
 |   |   |-- payment-methods.controller.ts
 |   |   |-- payment-methods.module.ts
 |   |   |-- payment-methods.service.ts
+|   |-- payments/    // Логика управления оплатами
+|   |   |-- payments.controller.ts
+|   |   |-- payments.module.ts
+|   |   |-- payments.service.ts
 |   |-- referrals/          // Работа с реферальной программой
 |   |   |-- referrals.controller.ts
 |   |   |-- referrals.module.ts
@@ -61,6 +65,7 @@
 |   |   |-- api.dto.ts                  // Общий ответ API с флагом успеха/ошибки, сообщением и данными.
 |   |   |-- bonus.dto.ts                // Data Transfer Objects (DTO) для бонусов.
 |   |   |-- payment-method.dto.ts       // Data Transfer Objects (DTO) для способов оплаты.
+|   |   |-- payment.dto.ts              // Data Transfer Objects (DTO) для оплаты.
 |   |   |-- referral.dto.ts             // Data Transfer Objects (DTO) для реферальной системы.
 |   |   |-- requests.dto.ts             // Data Transfer Objects (DTO) для раскладов.
 |   |   |-- role.dto.ts                 // Data Transfer Objects (DTO) для ролей.
@@ -78,6 +83,7 @@
 |   |   |-- user.entity.ts              // Сущность пользователя в БД.
 |   |-- enums            // Перечисления, используемые во всем проекте.
 |   |   |-- bonuses.enum.ts             // Перечисления для бонусов.
+|   |   |-- currency.enum.ts            // Перечисления для валют.
 |   |   |-- requests.enum.ts            // Перечисления для раскладов.
 |   |   |-- transactions.enum.ts        // Перечисления для транзакций.
 |   |-- utils            // Утилиты, используемые во всем проекте.

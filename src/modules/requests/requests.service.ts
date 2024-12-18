@@ -1,3 +1,4 @@
+import { OpenAIService } from "@config/openAI.service";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ApiResponse } from "@shared/dto/api.dto";
@@ -16,6 +17,8 @@ export class RequestsService {
 
         @InjectRepository(UserEntity)
         private readonly userRepository: Repository<UserEntity>,
+
+        private readonly openAIService: OpenAIService,
     ) {}
 
     async getAllRequests(): Promise<ApiResponse<GetRequestDto[]>> {
@@ -115,9 +118,21 @@ export class RequestsService {
                 user,
             });
 
+            let openAIResponse: string | null = null;
+
+            if (createRequestDto.requestData?.cards && createRequestDto.requestData?.question) {
+                openAIResponse = await this.openAIService.getTarotReading(
+                    createRequestDto.requestData.question,
+                    createRequestDto.requestData.cards,
+                );
+            }
+
             const savedRequest = await this.requestRepository.save(request);
 
-            return new ApiResponse(true, 'Request created successfully', savedRequest);
+            return new ApiResponse(true, 'Request created successfully', {
+                ...savedRequest,
+                openAIResponse,
+            });
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
