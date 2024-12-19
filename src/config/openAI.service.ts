@@ -7,13 +7,13 @@ export class OpenAIService {
     });
 
     async getTarotReading(question: string, cards: string[]): Promise<string> {
-        const prompt = `Пользователь задал вопрос: "${question}". Выбрал карты: ${cards.join(', ')}. Сделай расклад и расшифруй его. Ограничение: 350 символов.`;
+        const prompt = `Пользователь задал вопрос: "${question}". Выбрал карты: ${cards.join(', ')}. Сделай расклад и расшифруй его. Ограничение: 800 символов.`;
 
         try {
             const response = await this.openai.chat.completions.create({
-                model: 'gpt-3.5-turbo',
+                model: 'gpt-4o-mini',
                 messages: [{ role: 'system', content: prompt }],
-                max_tokens: 350,
+                max_tokens: 800,
                 temperature: 0.5,
             });
 

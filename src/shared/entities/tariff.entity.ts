@@ -12,7 +12,7 @@ export class TariffEntity {
     @Column({ type: 'text', nullable: true })
     description: string;
 
-    @Column({ type: 'varchar', length: 100, nullable: false })
+    @Column({ type: 'varchar', unique: true, length: 100, nullable: false })
     callback: string;
 
     @ManyToOne(() => PaymentMethodEntity, (paymentMethod) => paymentMethod.id, { nullable: false, onDelete: 'RESTRICT' })

@@ -127,12 +127,13 @@ export class RequestsService {
                 );
             }
 
+            request.responseData = {
+                answer: openAIResponse,
+            };
+
             const savedRequest = await this.requestRepository.save(request);
 
-            return new ApiResponse(true, 'Request created successfully', {
-                ...savedRequest,
-                openAIResponse,
-            });
+            return new ApiResponse(true, 'Request created successfully', savedRequest);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -140,7 +141,10 @@ export class RequestsService {
 
     async updateRequest(id: string, updateRequestDto: UpdateRequestDto): Promise<ApiResponse<RequestDto>> {
         try {
-            const existingRequest = await this.requestRepository.findOne({ where: { id } });
+            const existingRequest = await this.requestRepository.findOne({ 
+                where: { id },
+                relations: ['user'],
+            });
 
             if (!existingRequest) {
                 throw new HttpException('Request not found', HttpStatus.NOT_FOUND);
@@ -155,6 +159,17 @@ export class RequestsService {
             }
 
             await this.requestRepository.update({ id }, updateRequestDto);
+
+            if (updateRequestDto.status === RequestStatusesEnum.COMPLETED && existingRequest.isPaid) {
+                const user = existingRequest.user;
+
+                if (user && user.requestsLeft > 0) {
+                    await this.userRepository.update(
+                        { id: user.id },
+                        { requestsLeft: user.requestsLeft - 1 }
+                    );
+                }
+            }
 
             const updatedRequest = await this.getRequest(id);
 

@@ -1,4 +1,5 @@
 import { PartialType } from "@nestjs/mapped-types";
+import { InternationalSubscribeCallbacksEnum, SubscribeCallbacksEnum } from "@shared/enums/callbacks.enum";
 import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
 
 export class TariffDto {
@@ -16,7 +17,7 @@ export class TariffDto {
 
     @IsNotEmpty()
     @IsString()
-    callback: string;
+    callback: SubscribeCallbacksEnum | InternationalSubscribeCallbacksEnum;
 
     @IsNotEmpty()
     @IsNumber()
@@ -58,7 +59,7 @@ export class CreateTariffDto extends TariffDto {
 
     @IsNotEmpty()
     @IsString()
-    callback: string;
+    callback: SubscribeCallbacksEnum | InternationalSubscribeCallbacksEnum;
 
     @IsNotEmpty()
     @IsNumber()

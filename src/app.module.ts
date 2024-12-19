@@ -9,6 +9,7 @@ import { RolesModule } from '@modules/roles/roles.module';
 import { TariffsModule } from '@modules/tariffs/tariffs.module';
 import { TransactionsModule } from '@modules/transactions/transactions.module';
 import { UsersModule } from '@modules/users/users.module';
+import { WebhooksModule } from '@modules/webhooks/webhooks.module';
 import { Module } from '@nestjs/common';
 
 @Module({
@@ -17,6 +18,7 @@ import { Module } from '@nestjs/common';
 		TransactionsModule,
 		ReferralsModule,
 		DatabaseModule,
+		WebhooksModule,
 		PaymentsModule,
 		RequestsModule,
 		BonusesModule,

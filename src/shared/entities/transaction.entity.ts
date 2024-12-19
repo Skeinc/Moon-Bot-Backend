@@ -26,7 +26,7 @@ export class TransactionEntity {
     @ManyToOne(() => PaymentMethodEntity, (paymentMethod) => paymentMethod.id, { nullable: false, onDelete: 'RESTRICT' })
     paymentMethod: PaymentMethodEntity;
 
-    @Column({ type: 'varchar', length: 255, nullable: true })
+    @Column({ type: 'varchar', length: 255, nullable: true, unique: true })
     transactionId: string;
 
     @ManyToOne(() => TariffEntity, (tariff) => tariff.id, { nullable: true, onDelete: 'SET NULL' })

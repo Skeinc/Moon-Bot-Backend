@@ -4,6 +4,7 @@ import { ApiResponse } from "@shared/dto/api.dto";
 import { CreateTariffDto, GetTariffDto, UpdateTariffDto } from "@shared/dto/tariff.dto";
 import { PaymentMethodEntity } from "@shared/entities/payment-method.entity";
 import { TariffEntity } from "@shared/entities/tariff.entity";
+import { InternationalSubscribeCallbacksEnum, SubscribeCallbacksEnum } from "@shared/enums/callbacks.enum";
 import { mapTariff } from "@shared/utils/mapper.util";
 import { Repository } from "typeorm";
 
@@ -58,6 +59,23 @@ export class TariffsService {
             const mappedTariffs = tariffs.map(mapTariff);
 
             return new ApiResponse(true, 'Tariffs retrieved successfully by payment method', mappedTariffs);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    async getTariffByCallback(callback: SubscribeCallbacksEnum | InternationalSubscribeCallbacksEnum): Promise<ApiResponse<GetTariffDto>> {
+        try {
+            const tariff = await this.tariffRepository.findOne({
+                where: { callback },
+                relations: ['paymentMethod'],
+            });
+    
+            if (!tariff) {
+                throw new HttpException('Tariff not found', HttpStatus.NOT_FOUND);
+            }
+    
+            return new ApiResponse(true, 'Tariff retrieved successfully by callback', mapTariff(tariff));
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }

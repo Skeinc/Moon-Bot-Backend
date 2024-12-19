@@ -65,11 +65,11 @@ export class TransactionsController {
     }
 
     @Get('/by-transaction/:transactionId')
-    async getTransactionsByTransactionId(@Param('transactionId') transactionId: string): Promise<ApiResponse<GetTransactionDto[]>> {
+    async getTransactionByTransactionId(@Param('transactionId') transactionId: string): Promise<ApiResponse<GetTransactionDto>> {
         try {
-            return await this.transactionsService.getTransactionsByTransactionId(transactionId);
+            return await this.transactionsService.getTransactionByTransactionId(transactionId);
         } catch (error) {
-            return new ApiResponse(false, `Failed to retrieve transactions for transaction ID ${transactionId}`, null);
+            return new ApiResponse(false, `Failed to retrieve transaction for transaction ID ${transactionId}`, null);
         }
     }
 

@@ -113,7 +113,7 @@ export class BonusesService {
 
             const savedBonus = await this.bonusRepository.save(bonus);
 
-            if (bonus.bonusType === BonusTypeEnum.REQUESTS) {
+            if (bonus.bonusType === BonusTypeEnum.REQUESTS || bonus.bonusType === BonusTypeEnum.SUBSCRIPTION_CHANNEL) {
                 await this.addRequestsToUser(user.id, bonus.bonusValue);
             }
 

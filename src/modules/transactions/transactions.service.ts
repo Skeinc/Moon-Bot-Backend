@@ -117,16 +117,18 @@ export class TransactionsService {
         }
     }
 
-    async getTransactionsByTransactionId(transactionId: string): Promise<ApiResponse<GetTransactionDto[]>> {
+    async getTransactionByTransactionId(transactionId: string): Promise<ApiResponse<GetTransactionDto>> {
         try {
-            const transactions = await this.transactionRepository.find({
+            const transaction = await this.transactionRepository.findOne({
                 where: { transactionId },
                 relations: ['user', 'paymentMethod', 'tariff'],
             });
 
-            const mappedTransactions = transactions.map(mapTransaction);
+            if(!transaction) {
+                throw new HttpException('Transaction not found', HttpStatus.NOT_FOUND);
+            }
 
-            return new ApiResponse(true, 'Transactions retrieved successfully by transaction ID', mappedTransactions);
+            return new ApiResponse(true, 'Transactions retrieved successfully by transaction ID', mapTransaction(transaction));
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }

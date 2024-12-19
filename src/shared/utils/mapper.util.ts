@@ -11,6 +11,7 @@ import { TariffEntity } from "@shared/entities/tariff.entity";
 import { TransactionEntity } from "@shared/entities/transaction.entity";
 import { UserEntity } from "@shared/entities/user.entity";
 import { BonusTypeEnum } from "@shared/enums/bonuses.enum";
+import { InternationalSubscribeCallbacksEnum, SubscribeCallbacksEnum } from "@shared/enums/callbacks.enum";
 import { RequestStatusesEnum, RequestTypesEnum } from "@shared/enums/requests.enum";
 import { TransactionStatusesEnum, TransactionTypesEnum } from "@shared/enums/transaction.enum";
 
@@ -74,7 +75,7 @@ export function mapTariff(tariff: TariffEntity): GetTariffDto {
         id: tariff.id,
         name: tariff.name,
         description: tariff.description,
-        callback: tariff.callback,
+        callback: tariff.callback as SubscribeCallbacksEnum | InternationalSubscribeCallbacksEnum,
         paymentMethodId: tariff.paymentMethod.id,
         price: tariff.price,
         currency: tariff.currency,

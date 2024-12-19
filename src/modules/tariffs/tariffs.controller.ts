@@ -3,6 +3,7 @@ import { TariffsService } from "./tariffs.service";
 import { ApiResponse } from "@shared/dto/api.dto";
 import { CreateTariffDto, GetTariffDto, UpdateTariffDto } from "@shared/dto/tariff.dto";
 import { TariffEntity } from "@shared/entities/tariff.entity";
+import { InternationalSubscribeCallbacksEnum, SubscribeCallbacksEnum } from "@shared/enums/callbacks.enum";
 
 @Controller('tariffs')
 export class TariffsController {
@@ -34,6 +35,15 @@ export class TariffsController {
             return await this.tariffsService.getTariffsByPaymentMethod(paymentMethodId);
         } catch (error) {
             return new ApiResponse(false, `Failed to retrieve tariffs for payment method with ID ${paymentMethodId}`, null);
+        }
+    }
+
+    @Get('/by-callback/:callback')
+    async getTariffByCallback(@Param('callback') callback: SubscribeCallbacksEnum | InternationalSubscribeCallbacksEnum): Promise<ApiResponse<GetTariffDto>> {
+        try {
+            return await this.tariffsService.getTariffByCallback(callback);
+        } catch (error) {
+            return new ApiResponse(false, `Failed to retrieve tariff for callback: ${callback}`, null);
         }
     }
 
