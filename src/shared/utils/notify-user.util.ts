@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function notifyUserWithSuccessPayment(telegramId: number, message: string): Promise<void> {
+export async function notifyUser(telegramId: number, message: string): Promise<void> {
     try {
         const botToken = process.env.BOT_TOKEN;
         const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
